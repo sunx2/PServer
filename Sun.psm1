@@ -12,13 +12,15 @@ class Create_Server {
     [bool] $logs = $true
     [bool] $accept_query = $false
     [string] $query_path = "Query.json"
-    route($url,$responsetext){
+    route($url,$responsetext,$dict=@{}){
         $get_text = "GET {0}" -f $url
-        $this.routes.Add($get_text,$responsetext)
+        $parsedText = $this.Merger($responsetext,$dict)
+        $this.routes.Add($get_text,$parsedText)
     }
-    resource($url,$responsetext){
+    resource($url,$responsetext,$dict=@{}){
         $get_text = "POST {0}" -f $url
-        $this.routes.Add($get_text,$responsetext)
+        $parsedText = $this.Merger($responsetext,$dict)
+        $this.routes.Add($get_text,$parsedText)
     }
     start_url($html){
         $this.url = $html
@@ -30,10 +32,11 @@ class Create_Server {
         $this.accept_query = $text
         $this.query_path = $path
     }
-    template($url,$reponsefile){
+    template($url,$reponsefile,$dict=@{}){
         $a = Get-Content $reponsefile 
         $get_text = "GET {0}" -f $url
-        $this.routes.Add($get_text,$a)
+        $parsedText = $this.Merger($a,$dict)
+        $this.routes.Add($get_text,$parsedText)
     }
     Content($html){
          $this.buffer = [Text.Encoding]::UTF8.GetBytes($html)
@@ -42,6 +45,19 @@ class Create_Server {
         $a = Get-Content $html
         $this.errrormsg = $a
     }
+    [string]Merger($html,$liststring){
+        return [regex]::Replace(
+        $html,
+        '\%(?<tokenName>\w+)\%',
+        {  
+            param($match)
+
+            $tokenName = $match.Groups['tokenName'].Value
+
+            return $liststring[$tokenName]
+        }) 
+    }
+
     start(){
         $this.server = New-Object System.Net.HttpListener
         $this.server.Prefixes.Add($this.url)
