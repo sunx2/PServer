@@ -19,7 +19,7 @@ Import-Module -Force "path\to\Sun.psm1"
 ```powershell
 $server = Server
 $server.start_url("http://127.0.0.1:5000/")
-$server.route('/' , "<b>welcome to my page</b>")
+$server.route('/' , "<b>welcome to my page</b>" , @{})
 $server.start()
 ```
 #### Error page
@@ -38,21 +38,21 @@ $server.start_url("http://127.0.0.1:5000/")
 > Creates a new route.
 > it only accepts text or html.
 ```powershell
-$server.route('/hello/world' , "<b>hello world</b>")
+$server.route('/hello/world' , "<b>hello world</b>" , @{})
 ```
 ##### <span name="template">Templating</span>
 > Creates a new template.
 > you have to specify the specific location of the file.
 > ex: c://myfile.html
 ```powershell
-$server.route('/hello/world' , "file.html")
+$server.template('/hello/world' , "file.html" , @{})
 ```
 
 ##### <span name="api">API Resource</span>
 > Creates a new api resource
 > it only accepts text (you can use json like "{'hello':'world'}")
 ```powershell
-$server.resource('/api/helloworld' , "{'hello':'world'}")
+$server.resource('/api/helloworld' , "{'hello':'world'}" , @{})
 ```
 
 ### more functions coming.
