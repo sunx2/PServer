@@ -55,4 +55,26 @@ $server.template('/hello/world' , "file.html" , @{})
 $server.resource('/api/helloworld' , "{'hello':'world'}" , @{})
 ```
 
+##### <span name="exit">API Resource</span>
+> Creates a exit link which accepts a password to close the server
+> bellow exmaple will make the server exit at /exit/terminate123
+> It will ask for confirmation in console too.
+> Default exit url is /quit/TERMINATE_SERVER_01 , if you dont specify any exit_server
+```powershell
+$server.exit_server("exit","terminate123")
+```
+
+
 ### more functions coming.
+
+
+
+### text formatting
+> formats text in template
+> formats in template,string or resource
+```powershell
+$server.route('/' , "<b>welcome to my page %hello%</b>",@{hello="world"})
+$server.template("/home/myexample" , "C:\Users\Sun\Documents\powershell\file.html",@{user="Sun"; hi="hello"})
+$server.resource('/api' , "{'hello':'%world%'}",@{world="mouse"})
+```
+
