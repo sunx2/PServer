@@ -6,10 +6,12 @@ Powershell server is a script which can used to make  a small server on powershe
 * Import Server
 * Basic server code
 * Functions
-	* <a href="#starturl">start url</a>
-	*  <a href="#route">route</a>
-	* <a href="#template">template</a>
-	* <a href="#api">resource</a>
+	* <a href="#starturl">Start Url</a>
+	*  <a href="#route">Url Routing</a>
+	* <a href="#template">Local Tmplate</a>
+	* <a href="#api">Api resource</a>
+	* <a href="#exit">Quit Server Request </a>
+	* <a href="#textformat">Text Formatting </a>
 
 #### Import server
 ```powershell
@@ -69,7 +71,7 @@ $server.exit_server("exit","terminate123")
 
 
 
-### text formatting
+### <span name="textformat">text formatting</span>
 > formats text in template
 > formats in template,string or resource
 ```powershell
